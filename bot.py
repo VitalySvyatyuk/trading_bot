@@ -32,16 +32,22 @@ I am a trading bot, hehe
 
 while True:
     bin_resp = requests.get('https://api.binance.com/api/v3/ticker/price')
-    bit_resp = requests.get('https://api.bitfinex.com/v2/tickers?symbols=tBTCUSD,tLTCUSD')
+    bit_resp = requests.get('https://api.bitfinex.com/v2/tickers?symbols=tZRXUSD')
     if bin_resp.status_code != 200 or bit_resp.status_code != 200:
         print(bin_resp.status_code, bit_resp.status_code)
         raise ValueError
     bin_content = json.loads(bin_resp.content)
-    bin_BTCUSDT = round(float(bin_content[11]['price']), 1)
-    bin_LTCUSDT = round(float(bin_content[187]['price']), 3)
     bit_content = json.loads(bit_resp.content)
-    bit_BTCUSDT = bit_content[0][1]
-    bit_LTCUSDT = bit_content[1][1]
+
+    # bin_BTCUSDT = round(float(bin_content[11]['price']), 1)
+    # bin_LTCUSDT = round(float(bin_content[187]['price']), 3)
+    # bit_BTCUSDT = bit_content[0][1]
+    # bit_LTCUSDT = bit_content[1][1]
+    bin_HSRBTC = float(bin_content[13]['price'])
+    bin_SALTBTC = float(bin_content[48]['price'])
+    bit_HSRBTC = bit_content[0][1]
+    bit_SALTBTC = bit_content[1][1]
+
     print(bin_BTCUSDT, bit_BTCUSDT)
 
     # db = create_engine(settings.DB_STRING)
